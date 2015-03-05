@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ventas_productos" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha1" class="java.util.Date"/>
+	<parameter name="fecha2" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select p.NOMBRE_PRODUCTO as 'PRODUCTO', sum(dtvp.CANTIDAD) as 'CANTIDAD' from DETALLE_VENTA_PRODUCTO dtvp inner join PRODUCTO p on
+dtvp.ID_PRODUCTO = p.ID_PRODUCTO inner join VENTA v on v.ID_VENTA = dtvp.ID_VENTA
+where v.FECHA_VENTA between $P{fecha1} and $P{fecha2}
+group by p.NOMBRE_PRODUCTO
+union
+select p.NOMBRE_PRODUCTO as 'PRODUCTO', sum(dtvp.CANTIDAD) as 'CANTIDAD' from DETALLE_FACTURA_VENTA_PRODUCTO dtvp inner join PRODUCTO p on
+dtvp.ID_PRODUCTO = p.ID_PRODUCTO inner join FACTURA_VENTA v on v.ID_FACTURA_VENTA = dtvp.ID_FACTURA_VENTA
+where v.FECHA_VENTA between $P{fecha1} and $P{fecha2}
+group by p.NOMBRE_PRODUCTO
+]]>
+	</queryString>
+	<field name="PRODUCTO" class="java.lang.String"/>
+	<field name="CANTIDAD" class="java.math.BigDecimal"/>
+	<group name="PRODUCTO">
+		<groupExpression><![CDATA[$F{PRODUCTO}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="31" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="235" y="5" width="168" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{fecha1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="496" y="6" width="155" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{fecha2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="29" y="6" width="163" height="20"/>
+				<textElement/>
+				<text><![CDATA[Reporte de ventas por Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="5" width="40" height="20"/>
+				<textElement/>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="516">
+			<bar3DChart>
+				<chart>
+					<reportElement x="0" y="0" width="802" height="516"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Productos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{PRODUCTO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{CANTIDAD}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot isShowLabels="true">
+					<plot orientation="Horizontal">
+						<seriesColor seriesOrder="0" color="#81C885"/>
+					</plot>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF">
+						<font size="7" isBold="true"/>
+					</itemLabel>
+					<categoryAxisFormat>
+						<axisFormat>
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat>
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
+</jasperReport>

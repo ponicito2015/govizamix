@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:p="http://primefaces.org/ui"  
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head> <meta http-equiv="refresh" content="#{session.maxInactiveInterval};url=../index.jsf" />
+<link rel="shortcut icon" href="favicon.ico" /> <title>Sistema Integrado</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../style.css" rel="stylesheet" type="text/css" />
+<p:dock position="top" id="dock_menu" itemWidth="75" >
+    <p:menuitem value="Inicio"  icon="/images/casa_final.jpg" url="../index.jsf"/>
+    <p:menuitem value="Ventas"  icon="/images/ventas_final.jpg" url="../ventas.jsf"/>
+    <p:menuitem value="Compras" icon="/images/compras_final.jpg" url="../compras.jsf"/>
+    <p:menuitem value="Almac&eacute;n"  icon="/images/almacen_final.jpg" url="../almacen.jsf"/>
+    <p:menuitem value="Finanzas"  icon="/images/finanzas_final.jpg" url="../finanzas.jsf"/>
+
+</p:dock>
+</h:head>
+<h:body>
+<div class="main">
+  <div class="header">
+    <div class="logo">
+       </div>
+    <div class="menu">
+
+    </div>
+  </div>
+  <div class="clr"></div>
+  <div class="block_header">
+    <div class="slider">
+    <p:growl id="growl" showDetail="true"/>
+    <p:panel header="Producción - Nuevo Stock en Materia Prima" >
+
+   <h:form id="frm11">
+        <p:fieldset id="fielset"  legend="Datos de Registro" style="margin-top:5px">
+
+            <h:panelGrid id="pnlPrincipal" columns="2" cellpadding="5">
+
+
+                <h:panelGrid id="pnlg1" columns="3" cellpadding="5">
+
+
+                    <h:outputText value="Nombre de Materia Prima: " />
+                     <p:autoComplete id="auroxcomplete"
+                                     value="#{managedBeanStockMateriaPrima.stock_materia_prima.materiaPrima}"
+                                     completeMethod="#{managedBeanMateriaPrima.completar_filtrado_Materia_prima}"
+                                     var="item_materia" itemLabel="#{item_materia.nombreMateriaPrima}"
+                  itemValue="#{item_materia}"
+                               converter="materiaPrimaConverter"  minQueryLength="3"
+               size="35"
+                />
+<h:outputText value="" />
+
+
+<h:outputText value="Nombre del Local: " />
+
+<p:selectOneMenu style="width:320px" value="#{managedBeanStockMateriaPrima.stock_materia_prima.tienda}" effect="drop" converter="tiendaConverter" >
+     <f:selectItems  id="temsTien" value="#{managedBeanTienda.tiendasItems}"/>
+        </p:selectOneMenu>
+<h:outputText value="" />
+
+         <h:outputText value="Cantidad - Materia Prima :"/>
+         <p:inputText id="input_cantidad" size="17" style="color: red;" value="#{managedBeanStockMateriaPrima.stock_materia_prima.cantidad}"/>
+         <h:outputText value="" />
+
+         <h:outputText value="Descripción :"/>
+         <p:inputTextarea cols="35" rows="2" maxHeight="170" style="color: green;" value="#{managedBeanStockMateriaPrima.stock_materia_prima.descripcion}"/>
+         <h:outputText value="" />
+
+
+                 <h:outputText value="Ultima Fecha de Ingreso :"/>
+                 <p:calendar value="#{managedBeanStockMateriaPrima.stock_materia_prima.ultimaFechaIngreso}" pattern="dd/MM/yyyy"/>
+         <h:outputText value="" />
+
+                </h:panelGrid>
+
+
+                <h:panelGrid id="pnlg122" columns="1" cellpadding="5">
+
+                    <center>  <h:commandButton value="Terminar Registro" action="#{managedBeanStockMateriaPrima.registrar}" image="../images/guardar.png"/>  </center>
+
+                </h:panelGrid>
+                  </h:panelGrid>
+
+
+ </p:fieldset>
+
+
+
+
+    
+
+
+<br />
+           </h:form>
+    </p:panel>
+
+    </div>
+  </div>
+  <div class="clr"></div>
+
+  <div class="clr"></div>
+
+  <div class="clr"></div>
+</div>
+
+</h:body>
+</html>

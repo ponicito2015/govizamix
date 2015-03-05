@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Registro</title>
+        <meta charset="utf-8" lang="es">
+        <style type="text/css">
+                      #caja{
+                          background-image: url("images/Imagen1.jpg") ;
+                          width: 600px;
+                          border: 20px black;
+                          margin:40px auto;
+                          padding: 1em;
+                          border-radius:10px;
+                          font-family: Comic Sans MS;
+                          font-size: 15px;
+                          color: white;
+                          }
+                          
+                        h1,h2,h3.h4{
+                          font-family:Comic Sans MS;
+                          color: white;
+                        }
+                      input[type=text],input[type=password]{
+                          margin: 1em;
+                          margin-top: 1em;
+                          font-family:Comic Sans MS;
+                          width: 350px;
+                          border: 0px;
+                          padding: 1em;
+                          border-radius: 3px;
+                      }
+                      input[type=email]{
+                          margin: 1em;
+                          margin-top: 1em;
+                          font-family:Comic Sans MS;
+                          width: 350px;
+                          border: 0px;
+                          padding: 1em;
+                          border-radius: 3px;
+                      }
+                      input [type=submit], input [type=file]{
+                          padding:1em;
+                          background: #3e9abf;
+                          border: none;
+                          margin-bottom: 15px;
+                          margin-left: 10px;
+                          margin-right: 10px;
+                          font-family: Comic Sans MS black;
+                          font-size: 12px;
+                          color: black;
+                          -moz-border-radius: 3px;
+                          -webkit-border-radius: 3px;
+                          text-decoration: none;
+                          border-radius: 6px;
+                      }
+                          body {
+                          background-image:url("images/wallregistro6.jpg");
+                          background-size: 100%;
+                      }
+                  </style>
+    </head>
+    <body>
+        <h1>Llene los datos del formulario</h1>
+        <div id ="caja">
+        <form action="registro.php" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>Usuario:</td>
+                <td><input type="text" name="usuario" placeholder="Escribe un usuario"> </td>
+            </tr>
+            <tr>
+                <td>Contraseña:</td>
+                <td><input type="password" name="password" placeholder="Anota una contraseña"> </td>
+            </tr>
+            <tr>
+                <td>Repetir contraseña:</td>
+                <td><input type="password" name="password1" placeholder="Anota nuevamente tu contraseña"> </td>
+            </tr>
+            <tr>
+                <td>Nombre:</td>
+                <td><input type="text" name="nombre" placeholder="Anota tu nombre"> </td>
+            </tr>
+            <tr>
+                <td>Correo:</td>
+                <td><input type="email" name="correo" placeholder="Anota tu correo"> </td>
+            </tr>
+            <tr>
+                <td>Imagen de perfil:</td>
+                <td><input type="file" name="imagen"> </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Registrate"> </td>
+            </tr>
+        </table>
+        </form>
+            </div>
+    </body>
+</html>

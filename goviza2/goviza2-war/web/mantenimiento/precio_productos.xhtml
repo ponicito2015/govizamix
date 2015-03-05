@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:p="http://primefaces.org/ui"  
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head> <meta http-equiv="refresh" content="#{session.maxInactiveInterval};url=../index.jsf" />
+<link rel="shortcut icon" href="../favicon.ico" /> <title>Sistema Integrado</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../style.css" rel="stylesheet" type="text/css" />
+<p:dock position="top" id="dock_menu" itemWidth="75" >
+    <p:menuitem value="Inicio"  icon="/images/casa_final.jpg" url="../index.jsf"/>
+    <p:menuitem value="Ventas"  icon="/images/ventas_final.jpg" url="../ventas.jsf"/>
+    <p:menuitem value="Compras" icon="/images/compras_final.jpg" url="../compras.jsf"/>
+    <p:menuitem value="Almac&eacute;n"  icon="/images/almacen_final.jpg" url="../almacen.jsf"/>
+    <p:menuitem value="Finanzas"  icon="/images/finanzas_final.jpg" url="../finanzas.jsf"/>
+
+</p:dock>
+</h:head>
+<h:body>
+<div class="main">
+  <div class="header">
+    <div class="logo">
+       </div>
+    <div class="menu">
+
+    </div>
+  </div>
+  <div class="clr"></div>
+  <div class="block_header">
+    <div class="slider">
+    <p:growl id="growl" showDetail="true"/>
+    <p:panel header="Mantenimiento - Precio de Productos" >
+
+        <h:form id="frm_auto" >
+ <center>
+<h:commandButton title="Nuevo Precio Producto" image="../images/nuevo.png" action="#{managedBeanPrecioProducto.Nuevo}" />
+ </center>
+  </h:form>
+
+<h:form id="principal" >
+        <p:fieldset id="fielset"  legend="Lista de Precios" style="margin-top:10px">
+
+            <h:panelGrid id="pnlg1" columns="1" style="width:100%;" >
+
+
+            <p:dataTable   paginator="true" rows="21"   var="item" value="#{managedBeanPrecioProducto.listaPrecioProductos}" widgetVar="carsTable"
+            emptyMessage="No se Encontraron datos">
+
+         <f:facet name="header">
+             Seleccione una Opci&oacute;n de Filtrado
+        </f:facet>
+
+                <p:column   style="width:170px;font-size: 15px" filterBy="#{item.producto.nombreProducto}"
+                headerText="Producto"
+                filterMatchMode="contains" >
+            <h:outputText value="#{item.producto.nombreProducto}" />
+        </p:column>
+
+        <p:column style="width:170px;font-size: 15px; text-align: center;" headerText="Actualización">
+             
+            <h:outputText value="#{item.fechaActualizacion}" style="font-size: 15px; text-align: left;" ><f:convertDateTime pattern="EEEE dd MMMM yyyy"/> </h:outputText>
+
+        </p:column >
+
+
+<p:column style="width:50px; font-size: 15px; text-align: center;" headerText="Precio">
+      <h:outputText  value="#{item.precioProducto}" />
+</p:column >
+
+         <p:column style="width:22px"
+                headerText="op.">
+             
+               <h:commandButton title="Editar"
+                               image="../images/Editar.png" action="#{managedBeanPrecioProducto.Editar}">
+                  <f:setPropertyActionListener value="#{item}" target="#{managedBeanPrecioProducto.precioproducto}" />
+              </h:commandButton>
+            
+
+         </p:column >
+
+    </p:dataTable>
+</h:panelGrid>
+        </p:fieldset>
+           <p:separator />
+          </h:form>
+
+        <h:form id="yeah">
+
+
+              <center>
+                  <h:commandLink  action="#{managedBeanPrecioProducto.Volver_PrecioProductos}"  >
+       <p:graphicImage  value="../images/inicio1.jpg" />
+</h:commandLink></center>
+            </h:form>
+
+    </p:panel>
+
+    </div>
+  </div>
+  <div class="clr"></div>
+
+  <div class="clr"></div>
+
+  <div class="clr"></div>
+</div>
+
+</h:body>
+</html>
+

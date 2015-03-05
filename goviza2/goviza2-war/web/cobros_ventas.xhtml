@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:p="http://primefaces.org/ui"    
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+<link rel="shortcut icon" href="favicon.ico" /> <title>Sistema Integrado</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="style.css" rel="stylesheet" type="text/css" />  <meta http-equiv="refresh" content="#{session.maxInactiveInterval};url=index.jsf" />  
+<p:dock position="top" id="dock_menu" itemWidth="75" >
+    <p:menuitem value="Inicio"  icon="/images/casa_final.jpg" url="index.jsf"/>
+    <p:menuitem value="Ventas"  icon="/images/ventas_final.jpg" url="ventas.jsf"/>
+    <p:menuitem value="Compras" icon="/images/compras_final.jpg" url="compras.jsf"/>
+    <p:menuitem value="Almac&eacute;n"  icon="/images/almacen_final.jpg" url="almacen.jsf"/>
+    <p:menuitem value="Finanzas"  icon="/images/finanzas_final.jpg" url="finanzas.jsf"/>
+
+</p:dock>
+</h:head>
+<h:body>
+<div class="main">
+  <div class="header">
+    <div class="logo">
+       </div>
+    <div class="menu">
+
+    </div>
+  </div>
+  <div class="clr"></div>
+  <div class="block_header">
+    <div class="slider">
+    <p:growl id="growl" showDetail="true"/>
+    <p:panel header="M&oacute;dulo de Ventas - Cobros de Ventas al Crédito" >
+
+
+
+         <h:form id="frm2">
+
+             <h:panelGrid columns="1" id="grid_principal_cobros" style="width: 100%;">
+             <p:fieldset id="fielset" toggleable="true" toggleSpeed="500" legend="Lista Boletas Pendientes de Pago" style="margin-top:10px">
+
+
+            <h:dataTable id="tbldatosFiltrados"   var="item" value="#{managedBeanVenta.listaFiltradaVentas}"
+                    width="100%" styleClass="tabla_astro" headerClass="cabezera_tabla_astro" rowClasses="cuerpo_tabla"
+                     >
+
+
+                  <h:column>
+                    <f:facet name="header"> <h:outputText value="ID"> </h:outputText></f:facet>
+                    <h:outputText value="#{managedBeanVenta.Formato(item)}" />
+                </h:column>
+
+
+                <h:column>
+                    <f:facet name="header"> <h:outputText value="Cliente"> </h:outputText></f:facet>
+                    <h:outputText value="#{item.cliente.nombreCliente}" />
+                </h:column>
+
+
+                <h:column>
+                    <f:facet name="header"> <h:outputText value="Fecha de envio"> </h:outputText></f:facet>
+                    <h:outputText value="#{item.fechaVenta}" ><f:convertDateTime pattern="EEEE dd MMMM yyyy" /></h:outputText>
+                </h:column>
+
+
+                 <h:column>
+                    <f:facet name="header"> <h:outputText value="Estado"> </h:outputText></f:facet>
+                    <h:outputText  value="#{item.estadoVenta.nombreTestadoVenta}" />
+                </h:column>
+
+                                <h:column>
+                    <f:facet name="header"> <h:outputText value="Total"> </h:outputText></f:facet>
+                    <h:outputText  value="#{item.totalVenta}" />
+                </h:column>
+
+
+                <h:column>
+                    <f:facet name="header"> <h:outputText value="Pagado"> </h:outputText></f:facet>
+                    <h:outputText  value="#{item.totalPagosCredito}" style="color: blue;" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header"> <h:outputText value="Saldo"> </h:outputText></f:facet>
+                    <h:outputText  value="#{item.totalVenta -item.totalPagosCredito}" style="color: red;" />
+                </h:column>
+
+
+
+                 <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Op."></h:outputText>
+                        </f:facet>
+
+              <h:commandButton title="Realizar Cobro"
+                               image="images/cobrando.png" action="#{managedBeanPagoVentaCredito.Nuevo(item)}">
+                  <f:setPropertyActionListener value="#{item}" target="#{managedBeanPagoVentaCredito.pagoventacredito.venta}" />
+              </h:commandButton>
+
+           </h:column>
+
+
+            </h:dataTable>
+
+
+
+
+        </p:fieldset>
+          
+             <p:fieldset id="fielset233"  toggleable="true" toggleSpeed="500" legend="Lista Facturas Pendientes de Pago" style="margin-top:10px">
+
+
+                  <h:dataTable id="tbldatosFiltrados2333"   var="item" value="#{managedBeanFacturaVenta.listaFiltradaFacturaVentas}"
+                    width="100%" styleClass="tabla_astro" headerClass="cabezera_tabla_astro" rowClasses="cuerpo_tabla"
+                     >
+
+
+                       <h:column>
+                    <f:facet name="header"> <h:outputText value="ID"> </h:outputText></f:facet>
+                    <h:outputText value="#{managedBeanFacturaVenta.Formato(item)}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header"> <h:outputText value="Cliente"> </h:outputText></f:facet>
+                    <h:outputText value="#{item.cliente.nombreCliente}" />
+                </h:column>
+
+
+                <h:column>
+                    <f:facet name="header"> <h:outputText value="Fecha de envio"> </h:outputText></f:facet>
+                    <h:outputText value="#{item.fechaVenta}" ><f:convertDateTime pattern="EEEE dd MMMM yyyy" /></h:outputText>
+                </h:column>
+
+
+                 <h:column>
+                    <f:facet name="header"> <h:outputText value="Estado"> </h:outputText></f:facet>
+                    <h:outputText  value="#{item.estadoVenta.nombreTestadoVenta}" />
+                </h:column>
+
+                                <h:column>
+                    <f:facet name="header"> <h:outputText value="Total"> </h:outputText></f:facet>
+                    <h:outputText  value="#{item.totalVentaIncluidoIgv}" />
+                </h:column>
+
+
+                <h:column>
+                    <f:facet name="header"> <h:outputText value="Pagado"> </h:outputText></f:facet>
+                    <h:outputText  value="#{item.totalPagosCredito}" style="color: blue;" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header"> <h:outputText value="Saldo"> </h:outputText></f:facet>
+                    <h:outputText  value="#{item.totalVentaIncluidoIgv -item.totalPagosCredito}" style="color: red;" />
+                </h:column>
+
+
+
+                 <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Op."></h:outputText>
+                        </f:facet>
+
+              <h:commandButton title="Realizar Cobro"
+                               image="images/cobrando.png" action="#{managedBeanPagoFacturaVentaCredito.Nuevo(item)}">
+                  <f:setPropertyActionListener value="#{item}" target="#{managedBeanPagoFacturaVentaCredito.pagoventacredito.facturaVenta}" />
+              </h:commandButton>
+
+           </h:column>
+
+
+            </h:dataTable>
+
+
+
+
+        </p:fieldset>
+</h:panelGrid>
+             <p:separator />
+           <center>
+               <h:outputLink id="lnk" value="#">
+    <p:printer target="grid_principal_cobros" />
+    <p:graphicImage width="100 px" height="75 px" value="/images/imprimir3.jpg" />
+</h:outputLink>
+               
+               <h:commandLink  action="#{managedBeanPagoVentaCredito.Volver_CobroVentas}"  >
+       <p:graphicImage  value="images/inicio1.jpg" />
+</h:commandLink></center>
+
+
+           </h:form>
+
+    </p:panel>
+    </div>
+  </div>
+  <div class="clr"></div>
+
+  <div class="clr"></div>
+
+  <div class="clr"></div>
+</div>
+</h:body>
+</html>
